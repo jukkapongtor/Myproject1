@@ -2,6 +2,8 @@
     session_start();
     date_default_timezone_set('Asia/Bangkok');
     include("include/function.php");
+    include("module/product/product_function.php");
+    connect_db();
     $module=empty($_GET['module'])?"":$_GET['module'];
     $action=empty($_GET['action'])?"":$_GET['action'];
 ?>
@@ -29,16 +31,24 @@
         <div class="col-md-3 logo"><a href="index.php">MOUMFERN</a></div>
         <div class="col-md-6"></div>
         <div class="col-md-3">
-            <a href="index.php"><div class="header_menu_home header_menu_active">
+<?php
+            switch ($module) {
+                case 'product': $header_menu1='';$header_menu2='header_menu_active';$header_menu3='';$header_menu4=''; break;
+                case 'webblog': $header_menu1='';$header_menu2='';$header_menu3='header_menu_active';$header_menu4=''; break;
+                case 'webboard': $header_menu1='';$header_menu2='';$header_menu3='';$header_menu4='header_menu_active'; break;
+                default: $header_menu1='header_menu_active';$header_menu2='';$header_menu3='';$header_menu4=''; break;
+            }
+?>
+            <a href="index.php"><div class="header_menu_home <?php echo $header_menu1; ?>">
                 <h4>หน้าหลัก</h4>
             </div></a>
-            <a href="index.php?module=product"><div class="header_menu_product">
+            <a href="index.php?module=product&action=list_product"><div class="header_menu_product <?php echo $header_menu2; ?>">
                 <h4>สินค้า</h4>
             </div></a>
-            <a href="index.php?module=news"><div class="header_menu_news">
+            <a href="index.php?module=webblog&action=list_webblog"><div class="header_menu_news <?php echo $header_menu3; ?>">
                 <h4>ข่าวสาร</h4>
             </div></a>
-            <a href="index.php?module=webboard"><div class="header_menu_webboard">
+            <a href="index.php?module=webboard&action=webboard"><div class="header_menu_webboard <?php echo $header_menu4; ?>">
                 <h4>เว็บบอร์ด</h4>
             </div></a>
         </div>

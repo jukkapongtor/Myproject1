@@ -1,6 +1,6 @@
 <?php
 function connect_db(){
-	$_SESSION['connect_db']=mysqli_connect("localhost","root","","mumfern23") or die($_SESSION['connect_db']);
+	$_SESSION['connect_db']=mysqli_connect("localhost","root","","mumfern") or die($_SESSION['connect_db']);
 	mysqli_query($_SESSION['connect_db'],"SET NAMES utf8");
 }
 function get_module($module,$action){

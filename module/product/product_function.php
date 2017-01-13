@@ -1,5 +1,6 @@
 <?php
 function list_product(){
+	$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die("ERROR : product_function line 6");
 ?>
 	<form method="get" style="margin-top:10px;">
 		<input type="hidden" name='module' value="product">
