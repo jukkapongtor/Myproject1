@@ -22,15 +22,34 @@ div{
 	font-weight: bolder;
 	font-size: 40px;	
 }
-
-.header_menu_home,.header_menu_product,.header_menu_news,.header_menu_webboard{
+.logo a{
+	color:#287000;
+	text-decoration: none;	
+}
+.header_menu_home,.header_menu_product,.header_menu_news,.header_menu_webboard,.header_menu_active{
 	float:left;
 	width: 25%;
 	text-align: center;
 	padding-top: 10px;
 	height: 60px;
 }
-.header_menu_home:hover,.header_menu_product:hover,.header_menu_news:hover,.header_menu_webboard:hover{
-	background: #287000;
+.header_menu_home,.header_menu_product,.header_menu_news,.header_menu_webboard,.header_menu_active a{
+	color:#287000;
+}
+.header_menu_active{
+	background:#287000;
 	color: white;
+	height: 60px;
+	border-bottom: 2px solid #065000;
+}
+.header_menu_home:hover,.header_menu_product:hover,.header_menu_news:hover,.header_menu_webboard:hover{
+	background: #419222;
+	color: white;
+}
+.main{
+	background: #fff;
+}
+.images_slide{
+	height: 400px;
+	width: 100%;
 }

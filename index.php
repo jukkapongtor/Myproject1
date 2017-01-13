@@ -1,6 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('Asia/Bangkok');
+    include("include/function.php");
     $module=empty($_GET['module'])?"":$_GET['module'];
     $action=empty($_GET['action'])?"":$_GET['action'];
 ?>
@@ -25,27 +26,35 @@
 <body>
 <div class="header">
     <div class="container-fluid">
-        <div class="col-md-3 logo">MOUMFERN</div>
+        <div class="col-md-3 logo"><a href="index.php">MOUMFERN</a></div>
         <div class="col-md-6"></div>
         <div class="col-md-3">
-            <div class="header_menu_home">
+            <a href="index.php"><div class="header_menu_home header_menu_active">
                 <h4>หน้าหลัก</h4>
-            </div>
-            <div class="header_menu_product">
+            </div></a>
+            <a href="index.php?module=product"><div class="header_menu_product">
                 <h4>สินค้า</h4>
-            </div>
-            <div class="header_menu_news">
+            </div></a>
+            <a href="index.php?module=news"><div class="header_menu_news">
                 <h4>ข่าวสาร</h4>
-            </div>
-            <div class="header_menu_webboard">
+            </div></a>
+            <a href="index.php?module=webboard"><div class="header_menu_webboard">
                 <h4>เว็บบอร์ด</h4>
-            </div>
+            </div></a>
         </div>
     </div>
 </div>
 <div class="container-fluuid">
     <div class="col-md-2"></div>
-    <div class="col-md-8" style="background:#fff;height:100px;"> asdadasdasd</div>
+    <div class="col-md-8 main">
+<?php
+        if(empty($module)){
+            homepage();
+        }else{
+            get_module($module,$action);
+        }
+?>
+    </div>
     <div class="col-md-2"></div>
 </div>
 </body>
