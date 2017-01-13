@@ -1,0 +1,36 @@
+@import url("thsarabunnew.css");
+@import url("block.css");
+body{
+	font-family: "THSarabunNew";
+	background: #eee;
+}
+div{
+	font-family: "THSarabunNew";
+}
+.container-fluid{
+	padding: 0px;
+	margin: 0px;
+}
+.header{
+	width: 100%;
+	height: 60px;
+	background: #b8fc92;
+	color:#287000;
+}
+.logo{
+	font-family: "blockregular";
+	font-weight: bolder;
+	font-size: 40px;	
+}
+
+.header_menu_home,.header_menu_product,.header_menu_news,.header_menu_webboard{
+	float:left;
+	width: 25%;
+	text-align: center;
+	padding-top: 10px;
+	height: 60px;
+}
+.header_menu_home:hover,.header_menu_product:hover,.header_menu_news:hover,.header_menu_webboard:hover{
+	background: #287000;
+	color: white;
+}
