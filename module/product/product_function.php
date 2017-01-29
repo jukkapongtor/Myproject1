@@ -1,22 +1,26 @@
 <?php
 function list_product(){
-	$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die("ERROR : product_function line 6");
+	$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die(mysqli_error($_SESSION['connect_db']));
 ?>
-	<form method="get" style="margin-top:10px;">
+
+<div class="container-fluid search_pro">
+	<form method="get">
 		<input type="hidden" name='module' value="product">
 		<input type="hidden" name='action' value="list_product">
 		<input type="hidden" name='menu' value="<?php echo $_GET['menu']; ?>">
 		<input type="hidden" name='cate' value="<?php echo $_GET['cate']; ?>">
-		<div class="container-fluid">
-			<div class="col-md-7"></div>
-			<div class="col-md-5">
-				<div class="col-md-4" style="padding-top:5px;"><b>ค้นหาสินค้า</b></div>
-				<div class="col-md-6 padding0"><input type="text" name='keywd' class='form-control input-sm' pattern='[a-zA-Z0-9ก-๙]{0,}' title="กรอกข้อความได้เฉพาะ a-z A-Z ก-๙"></div>
-				<div class="col-md-2"><button class="btn btn-sm"><b><span class='glyphicon glyphicon-search'></span> ค้นหา</b></button></div>			
-			</div>
+		<div class="col-md-3 col-xs-3 search_pro_head">
+			<b>ค้นหาชื่อสินค้า</b>
 		</div>
-	</form>
-
+		<div class="col-md-4 col-xs-6" style="padding:6px 0px 6px 5px;">
+			<input type="text" name='keywd' class='form-control input-sm' pattern='[a-zA-Z0-9ก-๙]{0,}' title="กรอกข้อความได้เฉพาะ a-z A-Z ก-๙">
+		</div>
+		<div class="col-md-5 col-xs-2" style="padding:6px 0px 6px 5px;">
+			<button class="btn btn-sm btn-primary"><b><span class='glyphicon glyphicon-search'></span> ค้นหา</b></button>
+		</div>	
+	</form>				
+</div>
+	
 <script type="text/javascript">
 /*
   var str = '\'';
@@ -35,59 +39,39 @@ function list_product(){
   return false
   }
 </script>
-<?php
-	echo "<div class='container-fluid well padding0' style='margin-top:5px;padding-top:10px;'>";
-		echo "<div class='col-md-3' style='padding' >";
-?>			<div class='hidden-sm hidden-md hidden-lg'>
-				<nav class="navbar navbar-default" >
-				  <div class="container-fluid" style='padding:10px;margin:0px;'>
-				    <!-- Brand and toggle get grouped for better mobile display -->
-				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-				      <a class="navbar-brand">เลือกประเภทสินค้า</a>
-				    </div>
 
-				    <!-- Collect the nav links, forms, and other content for toggling -->
-				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-				      <ul class="nav navbar-nav" style='padding:10px;width:100%;margin:0px;'>
+	<div class='container-fluid well'>
+		<div class='col-md-3' style='padding' >
+			<p align="center" class='header_listpro'>เลือกประเภทสินค้า</p>
+			<nav class="navbar navbar-default" style='border:0px'>
+			    <div class="navbar-header" style="padding:0px;">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand hidden-lg hidden-md">เลือกประเภทสินค้า</a>
+			    </div>
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
+			      <ul class="nav navbar-nav" style="width:100%;margin:0px;">
 <?php
-						$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die("ERROR : product_function line 6");
+					$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die(mysqli_error($_SESSION['connect_db']));
 						while(list($product_type,$type_name,$product_quality)=mysqli_fetch_row($query_type)){
-							$active = ($product_type==$_GET['menu'])?"active":"";
-							echo "<a href='index.php?module=product&action=list_product&menu=$product_type&cate=$product_quality' class='list-group-item list-group-item-success $active'><font ><b>สินค้าประเภท$type_name</b></font></a>";
+						$active = ($product_type==$_GET['menu'])?"active":"";
+						echo "<a href='index.php?module=product&action=list_product&menu=$product_type&cate=$product_quality' class='list-group-item list-group-item-success $active'><font ><b>$type_name</b></font></a>";
 						}
 ?>
-				      </ul>
-				    </div><!-- /.navbar-collapse -->
-				  </div><!-- /.container-fluid -->
-				</nav>
-			</div>
-			<div class='hidden-xs' style='width:100%'>
-				<ul class="list-group">
-<?php
-						$query_type=mysqli_query($_SESSION['connect_db'],"SELECT type.product_type,type.type_name,quality.product_quality FROM type LEFT JOIN quality ON type.product_type = quality.quality_type GROUP BY type.type_name ORDER BY type.product_type ASC")or die("ERROR : product_function line 6");
-						while(list($product_type,$type_name,$product_quality)=mysqli_fetch_row($query_type)){
-							$active = ($product_type==$_GET['menu'])?"active":"";
-							echo "<a href='index.php?module=product&action=list_product&menu=$product_type&cate=$product_quality' class='list-group-item list-group-item-success $active'><font ><b>สินค้าประเภท$type_name</b></font></a>";
-						}
-?>
-				</ul>
+			      </ul>
+			    </div>
+			</nav>
+		</div>
+		<div class='col-md-9' style='padding-right:5px'>
+			<div class='container-fluid'>
+				<p align="center" class='header_listpro'>หมวดหมู่สินค้า</p>
 			</div>
 <?php
-		echo "</div>";
-		echo "<div class='col-md-9' style='padding:0px'>";
-
-			echo "<div class='container-fluid'>";
-				echo "<center><h4 style='background:#3c763d;padding:10px;margin-top:5px;color:white'><b>หมวดหมู่สินค้า</b></h4></center>";
-			echo "</div>";
-		
-
-		$query_cate = mysqli_query($_SESSION['connect_db'],"SELECT product_quality,quality_name,quality_image FROM quality WHERE quality_type='$_GET[menu]'")or die("ERROR : product_function line 14");
+		$query_cate = mysqli_query($_SESSION['connect_db'],"SELECT product_quality,quality_name,quality_image FROM quality WHERE quality_type='$_GET[menu]'")or die(mysqli_error($_SESSION['connect_db']));
 		$number=1;
 		$num_cate = mysqli_num_rows($query_cate);
 		if(!empty($num_cate)){
@@ -106,24 +90,24 @@ function list_product(){
 		}
 		}else{
 			echo "<div class='col-md-12' style='padding-top:30px;'>";
-				echo "<center><h3><b>สินค้ายังไม่ถูกเพิ่มหมวดหมู่</b></h3></center>";
+				echo "<center><h3><b>ประเภทสินค้ายังไม่ถูกเพิ่มหมวดหมู่</b></h3></center>";
 			echo "</div>";
 		}
 		echo "</div>";
 	echo "</div>";
 	echo "<div class='container-fluid'>";
-	$query_type =  mysqli_query($_SESSION['connect_db'],"SELECT type_name FROM type WHERE product_type='$_GET[menu]'")or die("ERROR : product_function line 37");
+	$query_type =  mysqli_query($_SESSION['connect_db'],"SELECT type_name FROM type WHERE product_type='$_GET[menu]'")or die(mysqli_error($_SESSION['connect_db']));
 	list($type_product) = mysqli_fetch_row($query_type);
-	$query_cate = mysqli_query($_SESSION['connect_db'],"SELECT quality_name FROM quality WHERE quality_type='$_GET[menu]' AND product_quality='$_GET[cate]'")or die("ERROR : product_function line 39");
+	$query_cate = mysqli_query($_SESSION['connect_db'],"SELECT quality_name FROM quality WHERE quality_type='$_GET[menu]' AND product_quality='$_GET[cate]'")or die(mysqli_error($_SESSION['connect_db']));
 	list($cate_name)=mysqli_fetch_row($query_cate);
-	$quality_sellstatus = mysqli_query($_SESSION['connect_db'],"SELECT sellproduct_status FROM web_page")or die("ERROR : product function line 42");
+	$quality_sellstatus = mysqli_query($_SESSION['connect_db'],"SELECT sellproduct_status FROM web_page")or die(mysqli_error($_SESSION['connect_db']));
     list($sellstatus)=mysqli_fetch_row($quality_sellstatus);
 	if(!empty($_GET['keywd'])){
 		$sql_product = "SELECT product.product_id,product.product_name,type.type_name_eng FROM product LEFT JOIN type ON product.product_type = type.product_type WHERE product.product_name LIKE '%$_GET[keywd]%'";
 	}else{
 		$sql_product = "SELECT product.product_id,product.product_name,type.type_name_eng FROM product LEFT JOIN type ON product.product_type = type.product_type WHERE product.product_type='$_GET[menu]' AND product.product_quality='$_GET[cate]' ";
 	}
-	$query_product = mysqli_query($_SESSION['connect_db'],$sql_product)or die("ERROR : product_function line 44");
+	$query_product = mysqli_query($_SESSION['connect_db'],$sql_product)or die(mysqli_error($_SESSION['connect_db']));
 	$num_row =mysqli_num_rows($query_product);
 	if(!empty($cate_name)){
 		if(empty($_GET['keywd'])){
@@ -140,6 +124,7 @@ function list_product(){
 		while (list($product_id,$product_name,$product_type)=mysqli_fetch_row($query_product)) {
 			
 			echo "<div class='col-md-3 col-xs-6' style='margin-top:20px'>";
+			echo "<div class='border_img'>";
 			$query_image = mysqli_query($_SESSION['connect_db'],"SELECT product_image FROM product_image WHERE product_id='$product_id'");
 			list($product_image_detail)=mysqli_fetch_row($query_image);
 			$path= (empty($product_image_detail))?"icon/no-images.jpg":"$product_type/$product_image_detail";
@@ -148,7 +133,7 @@ function list_product(){
 				$status_product = check_product($product_id);
 				if($status_product!=0){
 					switch ($status_product) {
-						case '1': echo "<img src='images/icon/new.png' class='img_product_detail' style='position: absolute;z-index:2'>"; break;
+						case '1': echo "<img src='images/icon/new.png' class='img_product_detail' style='position:absolute;z-index:2'>"; break;
 						case '2': echo "<img src='images/icon/best seller.png' class='img_product_detail' style='position: absolute;z-index:2'>"; break;
 						default: echo "<img src='images/icon/sale.png' class='img_product_detail' style='position: absolute;z-index:2'>"; break;
 					}
@@ -157,6 +142,7 @@ function list_product(){
 				
 				echo "<img src='images/$path' class='img_product_detail' style='position: relative;'>
 				<p style='margin-top:5px;'><font class='font-content' >$str[0]</font></p></a>";
+			echo "</div>";
 			echo "</div>";
 		}
 	}else{
@@ -171,9 +157,9 @@ function product_detail(){
 		echo "<script>window.location='shop/index.php?module=product&action=product_detail&product_id=$_GET[product_id]'</script>";
 	}
 	
-	$quality_sellstatus = mysqli_query($_SESSION['connect_db'],"SELECT sellproduct_status FROM web_page")or die("ERROR : product function line 64");
+	$quality_sellstatus = mysqli_query($_SESSION['connect_db'],"SELECT sellproduct_status FROM web_page")or die(mysqli_error($_SESSION['connect_db']));
 	list($sellstatus)=mysqli_fetch_row($quality_sellstatus);
-	$query_product_detail = mysqli_query($_SESSION['connect_db'],"SELECT product.product_name,product.product_detail,quality.quality_name,product.product_stock,type.type_name,type.type_name_eng FROM product LEFT JOIN quality ON product.product_quality = quality.product_quality LEFT JOIN type ON product.product_type = type.product_type WHERE product.product_id='$_GET[product_id]'")or die("ERROR : product_function line 59");
+	$query_product_detail = mysqli_query($_SESSION['connect_db'],"SELECT product.product_name,product.product_detail,quality.quality_name,product.product_stock,type.type_name,type.type_name_eng FROM product LEFT JOIN quality ON product.product_quality = quality.product_quality LEFT JOIN type ON product.product_type = type.product_type WHERE product.product_id='$_GET[product_id]'")or die(mysqli_error($_SESSION['connect_db']));
 	list($product_name,$product_detail,$quality_name,$product_stock,$product_type,$type_name_eng)=mysqli_fetch_row($query_product_detail);
 	echo "<center><div class='hidden-md hidden-sm hidden-lg' style='margin-top:20px'><h4><b>รายละเอียดสินนค้า$product_name</b></h4></div></center>";
 	echo "<div class='container-fluid'>";
@@ -182,7 +168,7 @@ function product_detail(){
 		echo "</div>";
 	    echo "<div class='col-md-5'>";
 	    $sql_images_detail = "SELECT product_image FROM product_image WHERE product_id='$_GET[product_id]'";
-	    $query_images_detail = mysqli_query($_SESSION['connect_db'],$sql_images_detail)or die("ERROR : product_function line 200");
+	    $query_images_detail = mysqli_query($_SESSION['connect_db'],$sql_images_detail)or die(mysqli_error($_SESSION['connect_db']));
 	    $number_image=1;
 	    $row_image = mysqli_num_rows($query_images_detail);
 	    if(!empty($row_image)){
@@ -234,7 +220,7 @@ function product_detail(){
 			</div>
 			</div>
 <?php
-			$query_images_detail = mysqli_query($_SESSION['connect_db'],$sql_images_detail)or die("ERROR : product_function line 200");
+			$query_images_detail = mysqli_query($_SESSION['connect_db'],$sql_images_detail)or die(mysqli_error($_SESSION['connect_db']));
 			while(list($product_image_detail)=mysqli_fetch_row($query_images_detail)){
 				$path= (empty($product_image_detail))?"icon/no-images.jpg":"$type_name_eng/$product_image_detail";
 				echo "<div class='col-md-3 col-xs-3' style='padding:5px'>";
@@ -346,7 +332,7 @@ function product_detail(){
 		echo "</div>";
 	echo "</div>";
 
-	$query_comment_product = mysqli_query($_SESSION['connect_db'],"SELECT * FROM comment_product WHERE product_id='$_GET[product_id]' ORDER BY comment_date ASC ")or die("ERROR : product line 226");
+	$query_comment_product = mysqli_query($_SESSION['connect_db'],"SELECT * FROM comment_product WHERE product_id='$_GET[product_id]' ORDER BY comment_date ASC ")or die(mysqli_error($_SESSION['connect_db']));
 	$comment_row = mysqli_num_rows($query_comment_product);
 	if(!empty($comment_row)){
 		echo "<div class='container-fluid' style='border-bottom:2px #ddd solid;margin:30px 0px; width:80%;margin-left:10%;'>";
@@ -390,8 +376,7 @@ function product_detail(){
 				echo "</div>";
 			echo "</div>";
 			echo "<div id='edit_content_comment_$comment_proid'>".nl2br($comment_detail)."</div>";
-			$query_user = mysqli_query($_SESSION['connect_db'],"SELECT image FROM users WHERE username='$username'")or die("ERROR : 
-				product line 215");
+			$query_user = mysqli_query($_SESSION['connect_db'],"SELECT image FROM users WHERE username='$username'")or die(mysqli_error($_SESSION['connect_db']));
 			list($image)=mysqli_fetch_row($query_user);
 			echo "<table>";
 				echo "<tr>";
@@ -451,7 +436,7 @@ function product_detail(){
 
 	echo "<br class='clear'><div class='underline'></div>";
 	echo "<div class='col-md-12'><h4><b>รายการสินค้าที่เกี่ยวข้อง(ประเภทเดียวกัน)</b></h4></div>";
-	$query_product = mysqli_query($_SESSION['connect_db'],"SELECT product.product_id,product.product_name,type.type_name_eng FROM product LEFT JOIN type ON product.product_type = type.product_type WHERE type.type_name='$product_type' ORDER BY RAND() LIMIT 4")or die("ERROR : product_function line 65");
+	$query_product = mysqli_query($_SESSION['connect_db'],"SELECT product.product_id,product.product_name,type.type_name_eng FROM product LEFT JOIN type ON product.product_type = type.product_type WHERE type.type_name='$product_type' ORDER BY RAND() LIMIT 4")or die(mysqli_error($_SESSION['connect_db']));
 	while (list($product_id,$product_name,$product_type)=mysqli_fetch_row($query_product)) {
 		echo "<div class='col-md-3 col-xs-4 rand_img_product'>";
 			$query_image = mysqli_query($_SESSION['connect_db'],"SELECT product_image FROM product_image WHERE product_id='$product_id'");
@@ -547,18 +532,18 @@ function comment_product(){
 		$_POST['comment_product'] = str_replace(" ","&nbsp;", $_POST['comment_product']);
 		$_POST['comment_detail'] = str_replace("'","&#39;", $_POST['comment_detail']);
 		$insert_comment = "INSERT INTO comment_product VALUES('','$_SESSION[login_name]','$_POST[product_id]','$_POST[comment_product]','$date')";
-		mysqli_query($_SESSION['connect_db'],$insert_comment)or die("ERROR product funtion line 346");
+		mysqli_query($_SESSION['connect_db'],$insert_comment)or die(mysqli_error($_SESSION['connect_db']));
 		echo "<script>swal({title:'',text: \"แสดงความคิดเห็นเรียบร้อยแล้ว\",type:'success',showCancelButton: false,confirmButtonColor: '#1ca332',confirmButtonText: 'ยันยัน',closeOnConfirm: false },function(){window.location='index.php?module=product&action=product_detail&product_id=$_POST[product_id]';})</script>";
 	
 	
 }
 function delete_comment(){
-	mysqli_query($_SESSION['connect_db'],"DELETE FROM comment_product WHERE comment_proid='$_POST[comment_proid]'")or die("ERROR product funtion line 509");
+	mysqli_query($_SESSION['connect_db'],"DELETE FROM comment_product WHERE comment_proid='$_POST[comment_proid]'")or die(mysqli_error($_SESSION['connect_db']));
 }
 function update_comment(){
 	$_POST['comment_detail'] = str_replace(" ","&nbsp;", $_POST['comment_detail']);
 	$_POST['comment_detail'] = str_replace("'","&#39;", $_POST['comment_detail']);
-	mysqli_query($_SESSION['connect_db'],"UPDATE comment_product SET comment_detail='$_POST[comment_detail]' WHERE comment_proid='$_POST[comment_proid]'")or die("ERROR product funtion line 512");
+	mysqli_query($_SESSION['connect_db'],"UPDATE comment_product SET comment_detail='$_POST[comment_detail]' WHERE comment_proid='$_POST[comment_proid]'")or die(mysqli_error($_SESSION['connect_db']));
 	echo "<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>";
 	echo "<script>swal({title:'',text: \"แก้ไขความคิดเห็นเรียบร้อยแล้ว\",type:'success',showCancelButton: false,confirmButtonColor: '#1ca332',confirmButtonText: 'ยันยัน',closeOnConfirm: false },function(){window.history.back();})</script>";
 }

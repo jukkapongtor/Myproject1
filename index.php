@@ -6,6 +6,7 @@
     connect_db();
     $module=empty($_GET['module'])?"":$_GET['module'];
     $action=empty($_GET['action'])?"":$_GET['action'];
+    $_SESSION['error']=(empty($_SESSION['error']))?"":$_SESSION['error'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,9 +29,9 @@
 <body>
 <div class="header">
     <div class="container-fluid">
-        <div class="col-md-3 logo"><a href="index.php">MOUMFERN</a></div>
-        <div class="col-md-6"></div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-3 col-xs-3 logo"><a href="index.php">MOUMFERN</a></div>
+        <div class="col-md-6 col-sm-4 hidden-xs"></div>
+        <div class="col-md-3 col-sm-5 col-xs-9">
 <?php
             switch ($module) {
                 case 'product': $header_menu1='';$header_menu2='header_menu_active';$header_menu3='';$header_menu4=''; break;
@@ -42,7 +43,7 @@
             <a href="index.php"><div class="header_menu_home <?php echo $header_menu1; ?>">
                 <h4>หน้าหลัก</h4>
             </div></a>
-            <a href="index.php?module=product&action=list_product"><div class="header_menu_product <?php echo $header_menu2; ?>">
+            <a href="index.php?module=product&action=list_product&menu=1&cate=1"><div class="header_menu_product <?php echo $header_menu2; ?>">
                 <h4>สินค้า</h4>
             </div></a>
             <a href="index.php?module=webblog&action=list_webblog"><div class="header_menu_news <?php echo $header_menu3; ?>">
@@ -54,7 +55,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluuid">
+<div class="container-fluid">
     <div class="col-md-2"></div>
     <div class="col-md-8 main">
 <?php
@@ -67,5 +68,41 @@
     </div>
     <div class="col-md-2"></div>
 </div>
+<div class="footer">
+    <p align="right"><b>ติดต่อร้านมุมเฟิร์น</b></p>
+    <p align="right">ตลาดคำเที่ยง ล็อค f208-f209 ตำบลป่าตัน อำเภอเมือง จังหวัดเชียงใหม่ 50300 โทร.081-8055024</p>    
+</div>
+<?php
+    if($_SESSION['error']==1){
+        $_SESSION['error']="";
+?>
+            <style>
+                .footer{
+                    position: absolute;
+                    bottom:0;
+                }
+                .header_menu_active{
+                    background-color: inherit;
+                    color: #287000;
+                    border:0px;
+                }
+            </style>
+            <script>
+                swal({
+                  title: "ข้อมูลพิดพลาด",
+                  text: "ไม่พบข้อมูลหน้าที่ร้องขอ",
+                  type: "warning",
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "ตกลง",
+                },
+                function(){
+                  window.history.back();
+                });
+                
+            </script>
+<?php
+
+    }
+?>
 </body>
 </html>

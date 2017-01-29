@@ -12,6 +12,8 @@ div{
 	margin: 0px;
 }
 .header{
+	position: fixed;
+	z-index: 99;
 	width: 100%;
 	height: 60px;
 	background: #b8fc92;
@@ -48,8 +50,133 @@ div{
 }
 .main{
 	background: #fff;
+	padding: 65px 0px 20px 0px;
 }
 .images_slide{
 	height: 400px;
 	width: 100%;
+}
+.home_intro p{
+	font-size: 16px;
+}
+.border_img{
+	border: 1px solid #ddd;
+}
+.border_img img{
+	width: 100%;
+	height: 250px;
+}
+.home_content{
+	margin-top: 20px;
+}
+.home_content p{
+	margin-top: 20px;
+	line-height: 25pt;
+	font-size: 15px;
+	text-indent: 0.4in;
+	text-align: justify;
+}
+.home_showimg1,.home_showimg2{
+	width: 100%;
+	height: 350px;
+
+}
+.home_showimg1{
+	background:url("../images/fern/20141014_114118.jpg"); 
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+}
+.home_showimg2{
+	background:url("../images/fern/20141014_114118.jpg"); 
+}
+.footer{
+	width: 100%;
+	padding: 10px;
+	background: #7bb275;
+	color:white;
+	border-top: 2px solid #065000;
+}
+.header_listpro{
+	background: #3c763d;
+	color:white;
+	font-weight: bolder;
+	font-size: 18px;
+	padding: 10px;
+	margin-top: 10px;
+}
+.header_listprov2{
+	border-bottom:1px solid #597259;
+	font-weight: bolder;
+	font-size: 16px;
+	margin-top: 10px;
+}
+.search_pro{
+	border:1px solid #3c763d;
+	margin-bottom: 10px;
+}
+.search_pro button{
+	font-size: 14px;
+}
+.search_pro_head{
+	background: #3c763d;
+	color: white;
+	margin:0px;
+	padding: 10px;
+	text-align: center;
+	font-size: 18px;
+}
+.font_show_type_qulity{
+	padding: 10px 0px 0px 20px;	
+}
+@media screen and (max-width:1211px) and (min-width:992px){
+	.header_menu_home h4,.header_menu_product h4,.header_menu_news h4,.header_menu_webboard h4,.header_menu_active{
+		font-size: 14.3px;
+	}
+}
+@media screen and (max-width:750px){
+	.header{
+		height: 40px;
+	}
+	.logo{
+		font-family: "blockregular";
+		font-weight: bolder;
+		font-size: 20px;
+		padding: 5px 0px 0px 5px;	
+	}
+	.header_menu_home h4,.header_menu_product h4,.header_menu_news h4,.header_menu_webboard h4,.header_menu_active{
+		font-size: 13px;
+		height: 40px;
+		margin:0px;
+		font-weight: bolder;
+	}
+	.header_menu_home:hover,.header_menu_product:hover,.header_menu_news:hover,.header_menu_webboard:hover,.header_menu_active:hover{
+		height: 40px;
+	}
+	.main{
+		padding: 45px 0px 20px 0px;
+	}
+	.images_slide{
+		height: 200px;
+	}
+	.home_intro p{
+		font-size: 14px;
+		margin: 0px 5px;
+	}
+	.border_img img{
+		height: 125px;
+	}
+	.home_showimg1{
+		height: 200px;
+		background:url("../images/fern/20150819_074317.jpg"); 
+		background-repeat: no-repeat;
+		background-size:100% 100%;
+	}
+	.search_pro_head{
+		margin:0px;
+		padding: 12px 2px;
+		font-size: 14px;
+	}
+	.search_pro button{
+		font-size: 12px;
+	}
 }
