@@ -27,9 +27,12 @@
  <script src="js/sweetalert.min.js"></script> 
 </head>
 <body>
+<?php 
+    include_once("analyticstracking.php");
+?>
 <div class="header">
     <div class="container-fluid">
-        <div class="col-md-3 col-sm-3 col-xs-3 logo"><a href="index.php">MOUMFERN</a></div>
+        <div class="col-md-3 col-sm-3 col-xs-3 logo"><a href="index.php">MUMFERN</a></div>
         <div class="col-md-6 col-sm-4 hidden-xs"></div>
         <div class="col-md-3 col-sm-5 col-xs-9">
 <?php
@@ -40,24 +43,24 @@
                 default: $header_menu1='header_menu_active';$header_menu2='';$header_menu3='';$header_menu4=''; break;
             }
 ?>
-            <a href="index.php"><div class="header_menu_home <?php echo $header_menu1; ?>">
-                <h4>หน้าหลัก</h4>
+            <!--<a href="index.php?module=webboard&action=webboard"><div class="header_menu_webboard <?php //echo $header_menu4; ?>">
+                <h4>เว็บบอร์ด</h4>
             </div></a>
+            <a href="index.php?module=webblog&action=list_webblog"><div class="header_menu_news <?php //echo $header_menu3; ?>">
+                <h4>ข่าวสาร</h4>
+            </div></a>-->
             <a href="index.php?module=product&action=list_product&menu=1&cate=1"><div class="header_menu_product <?php echo $header_menu2; ?>">
                 <h4>สินค้า</h4>
             </div></a>
-            <a href="index.php?module=webblog&action=list_webblog"><div class="header_menu_news <?php echo $header_menu3; ?>">
-                <h4>ข่าวสาร</h4>
+            <a href="index.php"><div class="header_menu_home <?php echo $header_menu1; ?>">
+                <h4>หน้าหลัก</h4>
             </div></a>
-            <a href="index.php?module=webboard&action=webboard"><div class="header_menu_webboard <?php echo $header_menu4; ?>">
-                <h4>เว็บบอร์ด</h4>
-            </div></a>
+            
         </div>
     </div>
 </div>
 <div class="container-fluid">
-    <div class="col-md-2"></div>
-    <div class="col-md-8 main">
+    <div class="col-md-8 col-md-offset-2 main">
 <?php
         if(empty($module)){
             homepage();
@@ -66,7 +69,6 @@
         }
 ?>
     </div>
-    <div class="col-md-2"></div>
 </div>
 <div class="footer">
     <p align="right"><b>ติดต่อร้านมุมเฟิร์น</b></p>

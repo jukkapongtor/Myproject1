@@ -29,7 +29,7 @@ div{
 	text-decoration: none;	
 }
 .header_menu_home,.header_menu_product,.header_menu_news,.header_menu_webboard,.header_menu_active{
-	float:left;
+	float:right;
 	width: 25%;
 	text-align: center;
 	padding-top: 10px;
@@ -78,16 +78,18 @@ div{
 }
 .home_showimg1,.home_showimg2{
 	width: 100%;
-	height: 350px;
+	height: 450px;
 
 }
 .home_showimg1{
-	background:url("../images/fern/20141014_114118.jpg"); 
+	background:url("../images/webpage/20141014_113350.jpg"); 
 	background-repeat: no-repeat;
 	background-size:100% 100%;
 }
 .home_showimg2{
-	background:url("../images/fern/20141014_114118.jpg"); 
+	background:url("../images/webpage/20150818_183303.jpg");
+	background-repeat: no-repeat;
+	background-size:100% 100%; 
 }
 .footer{
 	width: 100%;

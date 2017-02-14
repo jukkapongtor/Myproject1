@@ -14,22 +14,31 @@ function homepage(){
 ?>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+<?php
+    $query_slide=mysqli_query($_SESSION['connect_db'],"SELECT * FROM slide ")or die("ERROR : backend slide line 29");;
+    $row=mysqli_num_rows($query_slide);
+    for($i=0;$i<$row;$i++){
+        $active = ($i==0)?"class='active'":"";
+    	echo "<li data-target='#carousel-example-generic' data-slide-to='$i' $active></li>";
+    }
+?>
   </ol>
   <div class="carousel-inner images_slide" role="listbox" style="margin:0px;">
-    <div class="item images_slide active">
-      <img src="images/slide/20141013_113536.jpg" style="width:100%;height:100%;">
-      <div class="carousel-caption">
-        <!--ข้อความ-->
-      </div>
-    </div>
-    <div class="item images_slide">
-      <img src="images/slide/20160625_164133.jpg" style="width:100%;height:100%;">
-      <div class="carousel-caption">
-        <!--ข้อความ-->
-      </div>
-    </div>
+<?php
+    $number=0;
+    while(list($slide_id,$slide_image,$header_slide,$slide_detail)=mysqli_fetch_row($query_slide)){
+    	$active= ($number==0)?"active":"";
+	    echo "<div class='item images_slide $active'>";
+        	$header_slide = (!empty($header_slide))?$header_slide:"";
+            $path =(empty($slide_image))?"icon/no-images.jpg":"slide/$slide_image";
+            echo "<img src='images/$path' style='width:100%;height:100%' alt='...'>";
+            echo "<div class='carousel-caption'>";
+                echo "<h4 style='font-size:36px;'>$header_slide</h4><p>$slide_detail</p>";
+            echo "</div>";
+        echo "</div>";
+        $number++;
+    }
+?>
   </div>
   <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -42,7 +51,7 @@ function homepage(){
 </div>
 <div class="container-fluid home_intro">
 	<center>
-		<h3><b>MOUMFERN SHOP</h3><h4>(ร้านมุมเฟิร์น)</b></h4>
+		<h3><b>MUMFERN SHOP</h3><h4>(ร้านมุมเฟิร์น)</b></h4>
 		<p>ร้านมุมเฟิร์น เป็นร้านค้าขายต้นไม้ประเภทเฟิร์น เราจะขายสินค้าประเภทเฟิร์นเป็นหลัก ซึ่งมีหลายประเภท </p>
 		<p>และร้านเรายังนำกระถางมาขายซึ่งมีหลากหลายรูปแบบให้เลือก ให้เหมาะสมกับเฟิร์นที่ทางร้านขาย</p>
 	</center>
