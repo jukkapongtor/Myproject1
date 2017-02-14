@@ -112,20 +112,9 @@ div{
 	font-size: 16px;
 	margin-top: 10px;
 }
-.search_pro{
-	border:1px solid #3c763d;
-	margin-bottom: 10px;
-}
 .search_pro button{
 	font-size: 14px;
-}
-.search_pro_head{
-	background: #3c763d;
-	color: white;
-	margin:0px;
-	padding: 10px;
-	text-align: center;
-	font-size: 18px;
+	padding:4px;
 }
 .font_show_type_qulity{
 	padding: 10px 0px 0px 20px;	
@@ -169,14 +158,9 @@ div{
 	}
 	.home_showimg1{
 		height: 200px;
-		background:url("../images/fern/20150819_074317.jpg"); 
+		background:url("../images/webpage/20150818_182351.jpg"); 
 		background-repeat: no-repeat;
 		background-size:100% 100%;
-	}
-	.search_pro_head{
-		margin:0px;
-		padding: 12px 2px;
-		font-size: 14px;
 	}
 	.search_pro button{
 		font-size: 12px;

@@ -9,15 +9,14 @@ function list_product(){
 		<input type="hidden" name='action' value="list_product">
 		<input type="hidden" name='menu' value="<?php echo $_GET['menu']; ?>">
 		<input type="hidden" name='cate' value="<?php echo $_GET['cate']; ?>">
-		<div class="col-md-3 col-xs-3 search_pro_head">
-			<b>ค้นหาชื่อสินค้า</b>
+		<div class="col-md-6 col-md-offset-6 col-xs-12">
+			<div class="col-md-10 col-xs-10" style="padding:6px 0px 6px 5px;">
+				<input type="text" name='keywd' class='form-control input-sm' pattern='[a-zA-Z0-9ก-๙]{0,}' title="กรอกข้อความได้เฉพาะ a-z A-Z ก-๙">
+			</div>
+			<div class="col-md-2 col-xs-2" style="padding:6px 0px 6px 5px;">
+				<button class="btn btn-sm btn-primary"><b><span class='glyphicon glyphicon-search'></span> ค้นหา</b></button>
+			</div>	
 		</div>
-		<div class="col-md-4 col-xs-6" style="padding:6px 0px 6px 5px;">
-			<input type="text" name='keywd' class='form-control input-sm' pattern='[a-zA-Z0-9ก-๙]{0,}' title="กรอกข้อความได้เฉพาะ a-z A-Z ก-๙">
-		</div>
-		<div class="col-md-5 col-xs-2" style="padding:6px 0px 6px 5px;">
-			<button class="btn btn-sm btn-primary"><b><span class='glyphicon glyphicon-search'></span> ค้นหา</b></button>
-		</div>	
 	</form>				
 </div>
 	
