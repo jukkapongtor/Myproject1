@@ -24,7 +24,12 @@
  <script src="js/jquery-1.11.3.min.js"></script>
  <script src="js/jquery-ui.js"></script>
  <script src="js/bootstrap.min.js"></script>
- <script src="js/sweetalert.min.js"></script> 
+ <script src="js/sweetalert.min.js"></script>
+ <script>
+    function goback(){
+        window.history.back();
+    }   
+ </script>
 </head>
 <body>
 <?php 
@@ -33,8 +38,7 @@
 <div class="header">
     <div class="container-fluid">
         <div class="col-md-3 col-sm-3 col-xs-3 logo"><a href="index.php">MUMFERN</a></div>
-        <div class="col-md-6 col-sm-4 hidden-xs"></div>
-        <div class="col-md-3 col-sm-5 col-xs-9">
+        <div class="col-md-3 col-sm-5 col-xs-9 col-md-offset-6 col-sm-offset-4">
 <?php
             switch ($module) {
                 case 'product': $header_menu1='';$header_menu2='header_menu_active';$header_menu3='';$header_menu4=''; break;

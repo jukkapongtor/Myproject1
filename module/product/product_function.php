@@ -160,10 +160,10 @@ function product_detail(){
 	list($sellstatus)=mysqli_fetch_row($quality_sellstatus);
 	$query_product_detail = mysqli_query($_SESSION['connect_db'],"SELECT product.product_name,product.product_detail,quality.quality_name,product.product_stock,type.type_name,type.type_name_eng FROM product LEFT JOIN quality ON product.product_quality = quality.product_quality LEFT JOIN type ON product.product_type = type.product_type WHERE product.product_id='$_GET[product_id]'")or die(mysqli_error($_SESSION['connect_db']));
 	list($product_name,$product_detail,$quality_name,$product_stock,$product_type,$type_name_eng)=mysqli_fetch_row($query_product_detail);
-	echo "<center><div class='hidden-md hidden-sm hidden-lg' style='margin-top:20px'><h4><b>รายละเอียดสินนค้า$product_name</b></h4></div></center>";
 	echo "<div class='container-fluid'>";
 		echo "<div class='col-md-12 padding0' >";
-			echo "<h4 style='background:#3c763d;color:white;padding:10px;padding-top:15px;'><b>รายการสินค้า / ประเภท$product_type / หมวดหมู่$quality_name / $product_name</b></h4>";
+			echo "<p class='headprodetail hidden-xs'><a href='index.php?module=product&action=list_product&menu=1&cate=1' style='color:white;text-decoration:none'>รายการสินค้า </a>/ <span style='cursor:pointer' onclick='goback()'>ประเภท$product_type</span> / <span style='cursor:pointer' onclick='goback()'>หมวดหมู่$quality_name</span> / $product_name</p>";
+			echo "<p class='headprodetail hidden-md hidden-lg hidden-sm'>รายการสินค้า / $product_name</p>";
 		echo "</div>";
 	    echo "<div class='col-md-5'>";
 	    $sql_images_detail = "SELECT product_image FROM product_image WHERE product_id='$_GET[product_id]'";
@@ -197,7 +197,7 @@ function product_detail(){
 				//}
 				$active= ($number==0)?"active":"";
                 echo "<div class='item $active' style='height:350px;border-radius:15px;'>";
-                	echo "<img src='images/$path' style='width:100%;height:100%;border-radius:15px;' alt='...'>";
+                	echo "<img src='images/$path' style='width:100%;height:100%;border-radius:15px;' alt='$product_name'>";
                 echo "</div>";
                 $number++;
 				//echo "<div class='col-md-3 col-xs-3' style='padding:5px'>";
@@ -222,39 +222,36 @@ function product_detail(){
 			$query_images_detail = mysqli_query($_SESSION['connect_db'],$sql_images_detail)or die(mysqli_error($_SESSION['connect_db']));
 			while(list($product_image_detail)=mysqli_fetch_row($query_images_detail)){
 				$path= (empty($product_image_detail))?"icon/no-images.jpg":"$type_name_eng/$product_image_detail";
-				echo "<div class='col-md-3 col-xs-3' style='padding:5px'>";
-					echo "<img src='images/$path'  class='img_producde_mini' style='border-radius:5px;'>";
+				echo "<div class='col-md-3 hidden-xs' style='padding:5px'>";
+					echo "<img src='images/$path'  class='img_producde_mini'>";
 				echo "</div>";
 			}
 		}else{
-			echo "<div class='col-md-12'>";
+			echo "<div class='col-md-12 '>";
 				echo "<img src='images/icon/no-images.jpg' width='100%' height='350' style='border-radius:5px;'>";
 			echo "</div>";
 		}
-	    echo "</div>";
-	    echo "<div class='col-md-7'style='margin-top:20px'>";
+?>
+	    	</div>
+	    	<div class='col-md-7 contprode'style='margin-top:20px'>
+				<div class="row">
+					<div class="col-md-3"><p class="contprode_head">ชื่อ : </p></div>
+					<div class="col-md-8"><p class="contprode_cont"><?php echo $product_name?></p></div>
+				</div>
+				<div class="row" style="margin-top:10px">
+					<div class="col-md-3"><p class="contprode_head">ประเภท : </p></div>
+					<div class="col-md-8"><p class="contprode_cont"><?php echo $product_type?></p></div>
+				</div>
+				<div class="row" style="margin-top:10px">
+					<div class="col-md-3"><p class="contprode_head">หมวดหมู่ : </p></div>
+					<div class="col-md-8"><p class="contprode_cont"><?php echo $quality_name?></p></div>
+				</div>
+				<div class="row" style="margin-top:10px">
+					<div class="col-md-3"><p class="contprode_head">รายละเอียด : </p></div>
+					<div class="col-md-8"><p class="contprode_cont" style="text-indent:25px;text-align: justify"><?php $product_detail =(empty($product_detail))?"ไม่มีรายละเอียดของข้อมูลสินค้า":$product_detail; echo $product_detail;?></p></div>
+				</div>
+<?php
 		   	 echo "<table width='100%' class='font-content'>";
-	     		echo "<tr>";
-	      			echo "<td width='25%'><p><b>ชื่อสินค้า</b></p></td>";
-	      			echo "<td><p><b>&nbsp;:&nbsp;</b></p></td>";
-	      			echo "<td><p>$product_name</p></td>";
-	      		echo "</tr>";
-	      		echo "<tr>";
-	      			echo "<td><p><b>รายละเอียดสินค้า</b></p></td>";
-	      			echo "<td><p><b>&nbsp;:&nbsp;</b></p></td>";
-	      			$product_detail =(empty($product_detail))?"ไม่มีรายละเอียดของข้อมูลสินค้า":$product_detail;
-	      			echo "<td><p>$product_detail</p></td>";
-	      		echo "</tr>";
-	      		echo "<tr>";
-	      			echo "<td><p><b>ประเภทสินค้า</b></p></td>";
-	      			echo "<td><p><b>&nbsp;:&nbsp;</b></p></td>";
-	      			echo "<td><p>$product_type</p></td>";
-				echo "</tr>";
-				echo "<tr>";
-					echo "<td><p><b>หมวดหมู่สินค้า</b></p></td>";
-					echo "<td><p><b>&nbsp;:&nbsp;</b></p></td>";
-					echo "<td><p>$quality_name</p></td>";
-				echo "</tr>";
 				if($sellstatus==1){
 				echo "<tr>";
 					echo "<td><p><b>สถานะสินค้า</b></p></td>";
@@ -367,7 +364,7 @@ function product_detail(){
 								$.post('module/index.php?data=edit_comment',{comment_proid:comment_proid},function(data){
 									$('#edit_content_comment_'+comment_proid).html(data);
                 				});
-							}	
+							}
 						</script>
 <?php
 					}
@@ -379,7 +376,8 @@ function product_detail(){
 			list($image)=mysqli_fetch_row($query_user);
 			echo "<table>";
 				echo "<tr>";
-					echo "<td rowspan='2' valign='middle'><img src='images/user/$image' width='45' height='45' style='border-radius:45px;border:2px #ddd solid;margin-top:-10px;'></td>";
+					$path = (!empty($image))?$image:"user.png";
+					echo "<td rowspan='2' valign='middle'><img src='images/user/$path' width='45' height='45' style='border-radius:45px;border:2px #ddd solid;margin-top:-10px;'></td>";
 					echo "<td><p>&nbsp;&nbsp;<b>ผู้แสดงความคิดเห็น<b></p></td>";
 				echo "</tr>";
 				echo "<tr>";
@@ -398,65 +396,51 @@ function product_detail(){
 		<h4><b>แสดงความคิดเห็น</b></h4>
 	</div>
 	<div class="container-fluid"> 
-		<div class='row'>
-		<div class='col-md-2'></div>
-		<div class='col-md-8'>
+		<div class='col-md-8 col-md-offset-2'>
 			<div class="col-md-12">
 			<form action='index.php?module=product&action=comment_product' method="post">
+				<p><textarea class='form-control' name='comment_detail' style='height:100px;' placeholder='Comment...' required></textarea></p>
 <?php
-				$disabled = (empty($_SESSION['login_name']))?"disabled":"";
-
-				echo "<p><textarea class='form-control' name='comment_product' style='height:100px;' placeholder='Comment...' required $disabled>";
-					if(empty($_SESSION['login_name'])){
-						echo "สามารถแสดงความคิดเห็นสินค้าได้เฉพาะสมาชิกเท่านั้น";
-					}
-				echo "</textarea></p>";
-
 					$user =(!empty($_SESSION['login_name']))?$_SESSION['login_name']:"";
+					$disabled = (!empty($_SESSION['login_name']))?"disabled":"";
 ?>
-				<input type="hidden" name='username' value="<?php echo "$user";?>">
 				<input type="hidden" name='product_id' value="<?php echo "$_GET[product_id]" ;?>">
-				<p><input type='text' class="form-control" value="<?php echo "$user";?>" placeholder="Username..." required disabled></p>
-<?php
-				if(!empty($_SESSION['login_name'])){
-					echo "<p align='right'><button class='btn btn-sm btn-primary'>แสดงความเห็น</button></p>";
-				}else{
-					echo "<p align='right'><button type='button' class='btn btn-sm btn-primary' onclick='check_comment()' $disabled>แสดงความเห็น</button></p>";
-				}
-				
-?>
+				<p><input type='text' name='username' class="form-control" value="<?php echo "$user";?>" placeholder="Username..." required <?php echo $disabled?>></p>
+				<p align='right'><button class='btn btn-sm btn-primary'>แสดงความเห็น</button></p>
 			</form>
 			</div>
 		</div>
-		<div class='col-md-2'></div>
-		</div>
 	</div>
 <?php
-
 	echo "<br class='clear'><div class='underline'></div>";
-	echo "<div class='col-md-12'><h4><b>รายการสินค้าที่เกี่ยวข้อง(ประเภทเดียวกัน)</b></h4></div>";
+	echo "<div class='col-md-12 normal_head'>รายการสินค้าที่เกี่ยวข้อง(ประเภทเดียวกัน)</div>";
 	$query_product = mysqli_query($_SESSION['connect_db'],"SELECT product.product_id,product.product_name,type.type_name_eng FROM product LEFT JOIN type ON product.product_type = type.product_type WHERE type.type_name='$product_type' ORDER BY RAND() LIMIT 4")or die(mysqli_error($_SESSION['connect_db']));
+	$number=1;
+	echo "<div class='row'>"; 
 	while (list($product_id,$product_name,$product_type)=mysqli_fetch_row($query_product)) {
-		echo "<div class='col-md-3 col-xs-4 rand_img_product'>";
+		$hiddenxs = ($number==4)?"hidden-xs":"col-xs-4";
+		echo "<div class='col-md-3 col-sm-3 $hiddenxs'>";
 			$query_image = mysqli_query($_SESSION['connect_db'],"SELECT product_image FROM product_image WHERE product_id='$product_id'");
 			list($product_image_detail)=mysqli_fetch_row($query_image);
 			$path= (empty($product_image_detail))?"icon/no-images.jpg":"$product_type/$product_image_detail";
 			echo "<center><a href='index.php?module=product&action=product_detail&product_id=$product_id' style='text-decoration: none;'>";
-
-			$status_product = check_product($product_id);
-			if($status_product!=0){
-				switch ($status_product) {
-					case '1': echo "<img src='images/icon/new.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
-					case '2': echo "<img src='images/icon/best seller.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
-					default: echo "<img src='images/icon/sale.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
+			echo "<div class='border_img'>";
+				$status_product = check_product($product_id);
+				if($status_product!=0){
+					switch ($status_product) {
+						case '1': echo "<img src='images/icon/new.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
+						case '2': echo "<img src='images/icon/best seller.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
+						default: echo "<img src='images/icon/sale.png' class='ran_img_product' style='position: absolute;z-index:2'>"; break;
+					}
 				}
-			}
-			echo "<img src='images/$path' class='ran_img_product'  style='border-radius:5px;position:relative'>";
-			
-			$str = explode(" ",$product_name, 2);
-			echo "<p class='font-content' style='margin-top:5px'>$str[0]</p></a>";
+				echo "<img src='images/$path'>";
+				$str = explode(" ",$product_name, 2);
+				echo "<p class='font-content' style='margin-top:5px'>$str[0]</p>";
+			echo "</div></a>";
 		echo "</div>";
+		$number++;
 	}
+	echo "</div>";
 
 	echo "<script>";
 		echo "$(document).ready(function() {";
@@ -530,7 +514,8 @@ function comment_product(){
 		$date = date("Y-m-d H:i:s");
 		$_POST['comment_product'] = str_replace(" ","&nbsp;", $_POST['comment_product']);
 		$_POST['comment_detail'] = str_replace("'","&#39;", $_POST['comment_detail']);
-		$insert_comment = "INSERT INTO comment_product VALUES('','$_SESSION[login_name]','$_POST[product_id]','$_POST[comment_product]','$date')";
+		$user = (!empty($_SESSION['login_name']))?$_SESSION['login_name']:$_POST['username'];
+		$insert_comment = "INSERT INTO comment_product VALUES('','$user','$_POST[product_id]','$_POST[comment_product]','$date')";
 		mysqli_query($_SESSION['connect_db'],$insert_comment)or die(mysqli_error($_SESSION['connect_db']));
 		echo "<script>swal({title:'',text: \"แสดงความคิดเห็นเรียบร้อยแล้ว\",type:'success',showCancelButton: false,confirmButtonColor: '#1ca332',confirmButtonText: 'ยันยัน',closeOnConfirm: false },function(){window.location='index.php?module=product&action=product_detail&product_id=$_POST[product_id]';})</script>";
 	
